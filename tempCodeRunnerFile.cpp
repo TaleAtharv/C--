@@ -1,1 +1,4 @@
-#include <bits/stdc++.h>
+  if (poistion == 1)
+  {
+    insertAtHead(head, data);
+  }
