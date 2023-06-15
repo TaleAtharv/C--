@@ -13,6 +13,15 @@ public:
     this->data = data;
     this->next = NULL;
   }
+  // destuctor
+  ~Node()
+  {
+    if (this->next != NULL)
+    {
+      delete next;
+      this->next = NULL;
+    }
+  }
 };
 
 void insertAtHead(Node *&head, int data)
@@ -65,6 +74,33 @@ void insertAtMiddle(Node *&tail, Node *&head, int poistion, int data)
   temp->next = insertLL;
 }
 
+void deleteNode(int position, Node *&head)
+{
+  // deleting the first position node
+  if (position == 1)
+  {
+    Node *temp = head;
+    head = head->next;
+    temp->next = NULL;
+    delete temp;
+  }
+  else
+  {
+    Node *curr = head;
+    Node *pri = NULL;
+    int count = 1;
+    while (count < position )
+    {
+      pri = curr;
+      curr = curr->next;
+      count++;
+    }
+    pri->next = curr->next;
+    curr->next = NULL;
+    delete curr;
+  }
+}
+
 void print(Node *&head)
 {
   // first create new node and pointing our head to the new node
@@ -91,6 +127,8 @@ int main()
   insertAtTail(tail, 4);
   insertAtTail(tail, 5);
   insertAtMiddle(tail, head, 1, 0);
-
+  print(head);
+  deleteNode(1, head);
+  cout<<endl;
   print(head);
 }
