@@ -83,13 +83,29 @@ void deleteNode(int elm, Node *&tail)
     delete curr;
 }
 
+bool detectLoop(Node* head){
+    if(head == NULL)
+      return false;
+    
+    map<Node*,bool> visited;
+    Node* temp = head;
+    while(temp != NULL){
+        if(visited[temp] == true)
+          return true;
+        visited[temp] = true;
+        temp = temp->next;
+    }
+    return false;
+}
+
 int main()
 {
     Node *tail = NULL;
     insertNode(tail, 5, 63);
     insertNode(tail, 63, 56);
     insertNode(tail, 56, 52);
-    deleteNode(63, tail);
+    // deleteNode(63, tail);
+    return detectLoop(tail);
     print(tail);
     return 0;
 }

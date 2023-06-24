@@ -89,7 +89,7 @@ void deleteNode(int position, Node *&head)
     Node *curr = head;
     Node *pri = NULL;
     int count = 1;
-    while (count < position )
+    while (count < position)
     {
       pri = curr;
       curr = curr->next;
@@ -114,6 +114,41 @@ void print(Node *&head)
   }
 }
 
+bool detectLoop(Node *head)
+{
+  if (head == NULL)
+    return false;
+
+  map<Node *, bool> visited;
+  Node *temp = head;
+  while (temp != NULL)
+  {
+    if (visited[temp] == true)
+      return true;
+    visited[temp] = true;
+    temp = temp->next;
+  }
+  return false;
+}
+
+bool floydCycleDetectionAlgo(Node *head)
+{
+  if (head == NULL || head->next == NULL || head->next->next == NULL)
+    return false;
+  Node *fast = head;
+  Node *slow = head;
+  while (fast != NULL && slow != NULL)
+  {
+    fast = fast->next;
+    if (fast != NULL)
+      fast = fast->next;
+    slow = slow->next;
+    if (fast == slow)
+      return true;
+  }
+  return false;
+}
+
 int main()
 {
   Node *node1 = new Node(1);
@@ -127,8 +162,13 @@ int main()
   insertAtTail(tail, 4);
   insertAtTail(tail, 5);
   insertAtMiddle(tail, head, 1, 0);
-  print(head);
-  deleteNode(1, head);
-  cout<<endl;
-  print(head);
+  tail->next = head->next;
+  // print(head);
+  // deleteNode(1, head);
+  cout << endl;
+  // print(head);
+  if (floydCycleDetectionAlgo(head))
+  {
+    cout << "ddddddddd";
+  }
 }
